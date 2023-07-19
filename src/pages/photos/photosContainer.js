@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { getPhotos, getPhotosByAlbumId, getPhotosByUserId } from "../../api/PhotoApi";
 import { PhotoCard } from "./photoCard";
 import { PaginatedItems } from "../../shared/Pagination/PaginatedItems"
@@ -45,22 +45,29 @@ export const PhotosContainer = (props) => {
     return (
         <div class="content">
             <div>
-                <Link className="menu-link" to="/photos/Add">
-                    <button>Add new photo</button>
-                </Link>
+                {props.isLogged &&
+                    <Link className="menu-link" to="/photos/Add">
+                        <button>Add new photo</button>
+                    </Link>
+                }
                 {users &&
-                    <select value={selectedUser} onChange={onUserSelect}>
-                        {users.map((option) => (
-                            <option key={option.id} value={option.id}>{option.name}</option>
-                        ))}
-                    </select>}
+                    <>
+                        <span>Photos from user: </span>
+                        <select value={selectedUser} onChange={onUserSelect}>
+                            {users.map((option) => (
+                                <option key={option.id} value={option.id}>{option.name}</option>
+                            ))}
+                        </select>
+                    </>
+                }
             </div>
             <div className="photos-container">
                 <AlbumSideBar onAlbumClick={onAlbumClick} onResetClick={resetAlbumChoose} />
-                {photos != undefined &&
-                    <div>
+                {photos !== undefined &&
+                    <div className="photosList">
                         <PaginatedItems itemsData={photos} itemsPerPage={10} renderItem={PhotoCard} albums={userAlbums} />
                     </div>}
+                <div className='nonVisible'></div>
             </div>
         </div>
     );

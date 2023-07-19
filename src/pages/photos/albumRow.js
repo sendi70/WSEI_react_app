@@ -3,7 +3,7 @@ export const AlbumRow = (props) => {
         <>
             <h4>{props.data.title}</h4>
             <button onClick={() => props.onAlbumClick(props.data.id)}>
-                <p>Choose</p>
+                Choose
             </button>
         </>
     )

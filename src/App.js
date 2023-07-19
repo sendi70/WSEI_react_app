@@ -8,6 +8,7 @@ import { PhotosContainer } from './pages/photos/photosContainer';
 import { AddPhotoView } from './pages/photos/addPhoto';
 import { useEffect, useState } from 'react';
 import { ProfileContainer } from './pages/profile/profileContainer';
+import { SearchPage } from './pages/search/searchPage';
 
 function App() {
   const [isLogged, loginUser] = useState(false)
@@ -19,6 +20,7 @@ function App() {
         <Route exact path="/photos" element={<PhotosContainer isLogged={isLogged} />} />
         <Route exact path="/photos/Add" element={<AddPhotoView />} />
         <Route exact path="/profile" element={<ProfileContainer isLogged={isLogged} />} />
+        <Route exact path="/search" element={<SearchPage isLogged={isLogged} />} />
       </Routes>
     </BrowserRouter>
   );

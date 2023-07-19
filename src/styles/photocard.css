@@ -1,0 +1,14 @@
+.photoCard {
+    border: 1px solid white;
+    border-radius: 5px;
+    margin-block: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.photoCard button {
+    width: 30%;
+    margin-block-start: 10px;
+}

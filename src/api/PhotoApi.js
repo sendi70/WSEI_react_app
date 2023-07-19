@@ -5,6 +5,20 @@ export const getPhotos = async () => {
         .then((response) => response.json())
     return response;
 }
+
+export const getPhotoById = async (Id) => {
+    const response = await fetch('https://jsonplaceholder.typicode.com/photos/' + Id)
+        .then((response) => response.json())
+    return response;
+}
+
+export const deletePhotoById = async (Id) => {
+    const response = await fetch('https://jsonplaceholder.typicode.com/photos/' + Id, {
+        method: 'DELETE',
+    }).then((response) => response.json())
+    return response;
+}
+
 export const getPhotosByAlbumId = async (Id) => {
     console.log(Id)
     const response = await fetch('https://jsonplaceholder.typicode.com/photos?albumId=' + Id)

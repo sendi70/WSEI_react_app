@@ -14,14 +14,16 @@ export const AlbumSideBar = (props) => {
         getData()
     }, [])
     return (
-        <ol>
-            <li>
-                <button onClick={props.onResetClick}>
-                    <p>Reset</p>
-                </button>
-            </li>
-            {albums && albums.map(e =>
-                <li key={e.id}><AlbumRow data={e} onAlbumClick={props.onAlbumClick} /></li>)}
-        </ol>
+        <div className='albumSidebar'>
+            <button onClick={props.onResetClick}>
+                Reset
+            </button>
+            <h3>Albums: </h3>
+            <ol>
+
+                {albums && albums.map(e =>
+                    <li key={e.id}><AlbumRow data={e} onAlbumClick={props.onAlbumClick} /></li>)}
+            </ol>
+        </div>
     )
 }

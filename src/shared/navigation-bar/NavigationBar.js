@@ -1,12 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 import './NavigationBar.css'
 
 export const NavigationBar = (props) => {
+  const [isLogged, setIsLogged] = useState(props.onLogin)
+  const navigate = useNavigate();
+
   const logout = () => {
     localStorage.clear()
     props.onLogin(false);
+    setIsLogged(false);
+    navigate("/")
   }
   return (
     <header className="App-header">
@@ -20,6 +27,9 @@ export const NavigationBar = (props) => {
         </Link> |
         {localStorage.getItem("username") &&
           <>
+            <Link className="menu-link" to="/search">
+              <span role="img" aria-label="search link">🔍 Search</span>
+            </Link> |
             <Link className="menu-link" to="/profile">
               <span role="img" aria-label="profile link">🧑 {localStorage.getItem("username")}</span>
             </Link> |

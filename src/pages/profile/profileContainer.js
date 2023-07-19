@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { redirect, useNavigate } from "react-router-dom";
 import { getUserByName, updateUserInfo } from "../../api/UsersApi";
+import { UserData } from "./userData";
 
 export const ProfileContainer = (props) => {
     const [userData, setUserData] = useState();
     const [isEditting, setIsEditing] = useState(false);
 
     const getUserData = async () => {
+        console.log("getUserData")
         setUserData((await getUserByName(localStorage.getItem("username")))[0])
     }
 
@@ -24,34 +26,25 @@ export const ProfileContainer = (props) => {
     }
 
     useEffect(() => {
+        getUserData();
+    }, []);
+    useEffect(() => {
+        console.log("renders");
+    });
+
+    useEffect(() => {
         if (!props.isLogged) {
             redirect("/")
         }
-        getUserData();
-        console.log(userData)
     }, [props.isLogged])
+
     return (
-        <>
-            {userData ?
-                !isEditting ?
+        <div className="userContainer">
+            {userData &&
+                [!isEditting ?
                     <>
-                        <p>Name: {userData.name}</p>
-                        <p>Username: {userData.username}</p>
-                        <p>Email: {userData.email}</p>
-                        <p>Address:<br />
-                            * Street: {userData.address.street},<br />
-                            * Suite: {userData.address.suite},<br />
-                            * City: {userData.address.city},<br />
-                            * Zipcode: {userData.address.zipcode}<br />
-                        </p>
-                        <p>Phone: {userData.phone}</p>
-                        <p>Website: {userData.website}</p>
-                        <p>Company:<br />
-                            * Name: {userData.company.name},<br />
-                            * Catch phrase: {userData.company.catchPhrase},<br />
-                            * Balance Sheet? {userData.company.bs},<br />
-                        </p>
-                        <button onClick={() => setIsEditing(state => !state)}>EditUser</button>
+                        <UserData userData={userData} />
+                        <button onClick={() => { setIsEditing(state => !state) }}>EditUser</button>
                     </>
                     :
                     <>
@@ -85,12 +78,9 @@ export const ProfileContainer = (props) => {
 
                             <input type="submit" />
                         </form>
-                    </> :
-                <>
-
-                </>
+                    </>]
             }
             <label id="status"></label>
-        </>
+        </div>
     );
 }
